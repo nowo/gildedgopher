@@ -1,4 +1,8 @@
-# GO Starter
+# Gilded Rose Kata
+
+Read the problem description in the [requirements](GildedRoseRequirements.txt) file.
+
+## GO Starter
 
 - Run :
 
