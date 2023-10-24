@@ -10,8 +10,12 @@ func UpdateQuality(items []*Item) {
 
 		if items[i].Name != "Aged Brie" && items[i].Name != "Backstage passes to a TAFKAL80ETC concert" {
 			if items[i].Quality > 0 {
-				if items[i].Name != "Sulfuras, Hand of Ragnaros" {
+				if items[i].Name != "Sulfuras, Hand of Ragnaros" && items[i].Name != "Conjured Mana Cake" {
 					items[i].Quality = items[i].Quality - 1
+				}
+
+				if items[i].Name == "Conjured Mana Cake" {
+					items[i].Quality = items[i].Quality - 2
 				}
 			}
 		} else {
@@ -40,8 +44,12 @@ func UpdateQuality(items []*Item) {
 			if items[i].Name != "Aged Brie" {
 				if items[i].Name != "Backstage passes to a TAFKAL80ETC concert" {
 					if items[i].Quality > 0 {
-						if items[i].Name != "Sulfuras, Hand of Ragnaros" {
-							items[i].Quality = items[i].Quality - 1
+						if items[i].Name != "Sulfuras, Hand of Ragnaros" && items[i].Name != "Conjured Mana Cake" {
+							items[i].Quality = items[i].Quality - 1 //something wrong in here. It should be 2 not 1
+						}
+
+						if items[i].Name == "Conjured Mana Cake" {
+							items[i].Quality = items[i].Quality - 4
 						}
 					}
 				} else {
