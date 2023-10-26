@@ -18,12 +18,13 @@ func main() {
 		{"Sulfuras, Hand of Ragnaros", 0, 80},
 		{"Sulfuras, Hand of Ragnaros", -1, 80},
 		{"Backstage passes to a TAFKAL80ETC concert", 15, 20},
-		{"Backstage passes to a TAFKAL80ETC concert", 10, 49},
-		{"Backstage passes to a TAFKAL80ETC concert", 5, 49},
+		{"Backstage passes to a TAFKAL80ETC concert", 10, 29},
+		{"Backstage passes to a TAFKAL80ETC concert", 5, 29},
+		{"Backstage passes to a TAFKAL80ETC concert", 5, 47},
 		{"Conjured Mana Cake", 3, 6}, // <-- :O
 	}
 
-	days := 2
+	days := 3
 	var err error
 	if len(os.Args) > 1 {
 		days, err = strconv.Atoi(os.Args[1])
@@ -43,4 +44,5 @@ func main() {
 		fmt.Println("")
 		gildedrose.UpdateQuality(items)
 	}
+	fmt.Println(items[0])
 }

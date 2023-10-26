@@ -1,66 +1,73 @@
 package gildedrose
 
+import (
+	"strings"
+)
+
 type Item struct {
 	Name            string
 	SellIn, Quality int
 }
 
 func UpdateQuality(items []*Item) {
-	for i := 0; i < len(items); i++ {
-
-		if items[i].Name != "Aged Brie" && items[i].Name != "Backstage passes to a TAFKAL80ETC concert" {
-			if items[i].Quality > 0 {
-				if items[i].Name != "Sulfuras, Hand of Ragnaros" && items[i].Name != "Conjured Mana Cake" {
-					items[i].Quality = items[i].Quality - 1
-				}
-
-				if items[i].Name == "Conjured Mana Cake" {
-					items[i].Quality = items[i].Quality - 2
-				}
-			}
-		} else {
-			if items[i].Quality < 50 {
-				items[i].Quality = items[i].Quality + 1
-				if items[i].Name == "Backstage passes to a TAFKAL80ETC concert" {
-					if items[i].SellIn < 11 {
-						if items[i].Quality < 50 {
-							items[i].Quality = items[i].Quality + 1
-						}
-					}
-					if items[i].SellIn < 6 {
-						if items[i].Quality < 50 {
-							items[i].Quality = items[i].Quality + 1
-						}
-					}
-				}
-			}
+	for _, item := range items {
+		switch {
+		case strings.Contains(item.Name, "Sulfuras"):
+			continue
+		case item.Name == "Aged Brie":
+			updateBrie(item)
+		case strings.Contains(item.Name, "Backstage passes"):
+			updateBackstagePasses(item)
+		case strings.Contains(item.Name, "Conjured"):
+			updateConjured(item)
+		default:
+			updateRegularItem(item)
 		}
+		item.SellIn--
+	}
+}
 
-		if items[i].Name != "Sulfuras, Hand of Ragnaros" {
-			items[i].SellIn = items[i].SellIn - 1
-		}
+func updateBrie(item *Item) {
+	if item.Quality < 50 {
+		item.Quality++
+	}
+}
 
-		if items[i].SellIn < 0 {
-			if items[i].Name != "Aged Brie" {
-				if items[i].Name != "Backstage passes to a TAFKAL80ETC concert" {
-					if items[i].Quality > 0 {
-						if items[i].Name != "Sulfuras, Hand of Ragnaros" && items[i].Name != "Conjured Mana Cake" {
-							items[i].Quality = items[i].Quality - 1 //something wrong in here. It should be 2 not 1
-						}
-
-						if items[i].Name == "Conjured Mana Cake" {
-							items[i].Quality = items[i].Quality - 4
-						}
-					}
-				} else {
-					items[i].Quality = items[i].Quality - items[i].Quality
-				}
-			} else {
-				if items[i].Quality < 50 {
-					items[i].Quality = items[i].Quality + 1
-				}
-			}
-		}
+func updateBackstagePasses(item *Item) {
+	switch {
+	case item.SellIn <= 0:
+		item.Quality = 0
+	case item.SellIn < 6:
+		item.Quality += 3
+	case item.SellIn < 11:
+		item.Quality += 2
+	default:
+		item.Quality++
 	}
 
+	if item.Quality > 50 {
+		item.Quality = 50
+	}
+}
+
+func updateConjured(item *Item) {
+	decrease := 2
+	if item.SellIn <= 0 {
+		decrease = 4
+	}
+	item.Quality -= decrease
+	if item.Quality < 0 {
+		item.Quality = 0
+	}
+}
+
+func updateRegularItem(item *Item) {
+	decrease := 1
+	if item.SellIn <= 0 {
+		decrease = 2
+	}
+	item.Quality -= decrease
+	if item.Quality < 0 {
+		item.Quality = 0
+	}
 }
