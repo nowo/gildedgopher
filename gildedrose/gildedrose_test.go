@@ -14,6 +14,7 @@ func Test_Foo(t *testing.T) {
 		expectedQuality int
 	}{
 		{"+5 Dexterity Vest", 10, 20, 18},
+		{"+5 Dexterity Vest", 0, 1, 18},
 		{"Aged Brie", 2, 0, 2},
 		{"Elixir of the Mongoose", 5, 7, 5},
 		{"Sulfuras, Hand of Ragnaros", 0, 80, 80},
@@ -21,6 +22,8 @@ func Test_Foo(t *testing.T) {
 		{"Backstage passes to a TAFKAL80ETC concert", 10, 15, 19},
 		{"Backstage passes to a TAFKAL80ETC concert", 5, 10, 16},
 		{"Backstage passes to a TAFKAL80ETC concert", 1, 5, 0},
+		{"Backstage passes to a TAFKAL80ETC concert", 10, 48, 50},
+		{"Backstage passes to a TAFKAL80ETC concert", 15, 40, 42},
 		{"Conjured Mana Cake", 3, 6, 2},
 		{"Conjured Mana Cake", 0, 6, 0},
 	}
